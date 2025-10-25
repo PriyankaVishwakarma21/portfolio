@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global */
+body {
+  background-color: #0b1220; /* hr.bg */
+  color: #ffffff;
+  font-family: "Inter", "Poppins", sans-serif;
+}
+
+/* Replace gradient headings with plain HR green */
+.hr-text {
+  color: #2ec866; /* hr.DEFAULT */
+}
+
+/* Buttons */
+.hr-btn {
+  background: linear-gradient(90deg, #2ec866, #18a35b);
+  color: #071114; /* text on button (dark) */
+}
+
+/* Cards */
+.hr-card {
+  background-color: #07121a; /* slightly lighter than bg */
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Code blocks */
+.code-block {
+  background: #071114; /* hr.code */
+  color: #b7c1c7;
+  font-family: "Source Code Pro", monospace;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+/* subtle link hover */
+a:hover {
+  color: #b7c1c7;
+}
