@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { IoCall } from "react-icons/io5";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
   const linkedin = process.env.REACT_APP_LINKEDIN;
@@ -9,11 +10,29 @@ export default function Contact() {
   const email = process.env.REACT_APP_EMAIL;
   const mobileNo = process.env.REACT_APP_MOBILENO;
 
+  // Email Js
+  const toName = process.env.REACT_APP_TO_NAME;
+  const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+  const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+  const emailjsPublicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+
   const form = useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("✅ Demo: Message Sent Successfully!");
-    form.current.reset();
+
+    emailjs
+      .sendForm(serviceId, templateId, form.current, {
+        publicKey: emailjsPublicKey,
+      })
+      .then(
+        () => {
+          alert("✅ Message Sent Successfully!");
+          form.current.reset();
+        },
+        (error) => {
+          alert("❌ Failed to send message. Please try again later.");
+        }
+      );
   };
 
   return (
@@ -26,15 +45,31 @@ export default function Contact() {
       >
         <input
           type="text"
-          name="user_name"
+          name="to_name"
+          placeholder="Your To Name"
+          value={toName}
+          required
+          hidden
+          className="p-3 rounded-lg bg-[#111] text-white border border-gray-700 focus:border-pink-500"
+        />
+        <input
+          type="text"
+          name="from_name"
           placeholder="Your Name"
           required
           className="p-3 rounded-lg bg-[#111] text-white border border-gray-700 focus:border-pink-500"
         />
         <input
           type="email"
-          name="user_email"
+          name="from_email"
           placeholder="Your Email"
+          required
+          className="p-3 rounded-lg bg-[#111] text-white border border-gray-700 focus:border-yellow-400"
+        />
+        <input
+          type="text"
+          name="sub"
+          placeholder="Your Subject"
           required
           className="p-3 rounded-lg bg-[#111] text-white border border-gray-700 focus:border-yellow-400"
         />
